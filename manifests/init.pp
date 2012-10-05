@@ -1,4 +1,4 @@
-class wowza inherits wowza::params {
+class wowza () inherits wowza::params {
 
   include wowza::install
 
