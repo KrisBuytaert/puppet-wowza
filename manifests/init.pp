@@ -1,10 +1,12 @@
-class wowza () inherits wowza::params {
+class wowza (
+  $wowza_pkg  = $wowza::params::wowza_pkg,
+) inherits wowza::params {
 
   include wowza::install
 
   file { 
 	  "/usr/local/WowzaMediaServer/conf/Server.license":
-		  require => Package["WowzaMediaServer"],
+		  require => Package[$wowza_pkg],
 		  content => "<%= wowzakey %>" ,
 	}
 
