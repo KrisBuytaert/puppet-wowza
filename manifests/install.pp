@@ -12,7 +12,7 @@ class wowza::install {
     /(?i:debian)/: {
       preseed { $java_pkg:
         ensure => 'present',
-        source => 'sun-java6-jdk shared/accepted-sun-dlj-v1-1 boolean true';
+        source => 'wowza/debconf.sunjava.erb';
       }
     }
   }
