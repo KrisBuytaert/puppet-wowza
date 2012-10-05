@@ -8,7 +8,12 @@ class wowza::install {
   }
 
   # Installation of the java dependency
-  package { $java_pkg:
-    ensure => 'present';
+  case $::operatingsystem {
+    /(?i:debian)/: {
+      preseed { $java_pkg:
+        ensure => 'present',
+        source => 'sun-java6-jdk shared/accepted-sun-dlj-v1-1 boolean true';
+      }
+    }
   }
 }
