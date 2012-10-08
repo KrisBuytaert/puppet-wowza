@@ -5,7 +5,7 @@ class wowza::config (
   $playmethod = "none",
 ) inherits wowza::params {
 
-  file { "${wowza::params::installdir}/application/${application}":
+  file { "${wowza::params::installdir}/applications/${application}":
     ensure => 'directory',
   }
 
