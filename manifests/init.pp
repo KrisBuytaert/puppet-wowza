@@ -1,5 +1,6 @@
 class wowza (
   $wowzakey,
+  $java_heap_size = $wowza::params::java_heap_size,
   $wowza_pkg = $wowza::params::wowza_pkg
 ) inherits wowza::params {
 

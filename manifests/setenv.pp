@@ -1,5 +1,5 @@
 class wowza::setenv (
-  $java_heap_size = $wowza::params::java_heap_size
+  $java_heap_size = $wowza::java_heap_size
 ) inherits wowza::params {
   
   file { 'setenv.sh':
