@@ -19,6 +19,6 @@ class wowza::config (
     owner   => root,
     group   => root,
     mode    => 0644,
-    content => template(wowza/application.xml.erb),
+    content => template("wowza/application.xml.erb"),
   }
 }
