@@ -1,1 +1,7 @@
-include wowza
+node default {
+
+  class { 'wowza':
+    wowzakey => 'mykey';
+  }
+
+}
