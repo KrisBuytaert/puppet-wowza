@@ -14,7 +14,7 @@ class wowza::config (
   }
 
   file {"Application.xml":
-    path    => "${wowza::params::installdir}/conf/${application}",
+    path    => "${wowza::params::installdir}/conf/${application}/Application.xml",
     ensure  => 'file',
     owner   => root,
     group   => root,
