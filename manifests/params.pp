@@ -1,6 +1,7 @@
 class wowza::params {
 
   $installdir = '/usr/local/WowzaMediaServer'
+  $java_heap_size = '1200M'
 
   case $::operatingsystem {
     /(?i:debian)/: {
