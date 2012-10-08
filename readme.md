@@ -24,4 +24,10 @@ class { 'wowza::config':
 
 ### Set Java Heap size
 
+By default it sets the size to 1200M
+
+class { 'wowza':
+  wowzakey       => $wowzakey,
+  java_heap_size => '3000M';
+}
 
