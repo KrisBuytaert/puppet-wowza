@@ -4,6 +4,7 @@ class wowza (
 ) inherits wowza::params {
 
   include wowza::install
+  include wowza::setenv
 
   file { '/usr/local/WowzaMediaServer/conf/Server.license':
     require => Package[$wowza_pkg],
