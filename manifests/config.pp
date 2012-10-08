@@ -20,5 +20,6 @@ class wowza::config (
     group   => root,
     mode    => 0644,
     content => template("wowza/application.xml.erb"),
+    notify  => Service["WowzaMediaServer"],
   }
 }
