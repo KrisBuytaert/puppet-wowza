@@ -14,6 +14,6 @@ class wowza (
 class wowza::disable inherits wowza{
   Service['WowzaMediaServer'] {
     ensure => 'stopped' ,
-    enable => 'false',
+    enable => false,
   }
 }

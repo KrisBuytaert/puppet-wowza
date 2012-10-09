@@ -1,4 +1,4 @@
-class wowza::service inherits wowza::params {
+class wowza::service {
 
   service {
     'WowzaMediaServer':

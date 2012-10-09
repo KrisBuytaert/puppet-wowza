@@ -7,42 +7,42 @@ class wowza::serverconfig {
   #change permissions for the folders
   file { "${::wowza::installdir}/logs":
     ensure => 'present',
-    mode   => '775',
+    mode   => '0775',
     owner  => 'root',
     group  => 'root',
   }
 
   file { "${::wowza::installdir}/conf":
     ensure => 'present',
-    mode   => '755',
+    mode   => '0755',
     owner  => 'root',
     group  => 'root',
   }
 
   file { "${::wowza::installdir}/applications":
     ensure => 'present',
-    mode   => '755',
+    mode   => '0755',
     owner  => 'root',
     group  => 'root',
   }
 
   file { "${::wowza::installdir}/content":
     ensure => 'present',
-    mode   => '755',
+    mode   => '0755',
     owner  => 'root',
     group  => 'root',
   }
 
   file { "${::wowza::installdir}/keys":
     ensure => 'present',
-    mode   => '755',
+    mode   => '0755',
     owner  => 'root',
     group  => 'root',
   }
-  
+
   file { "${::wowza::installdir}/transcoder":
     ensure => 'present',
-    mode   => '755',
+    mode   => '0755',
     owner  => 'root',
     group  => 'root',
   }
@@ -51,10 +51,10 @@ class wowza::serverconfig {
   #Also create logs for each separate vhost and applications
   file { "${::wowza::installdir}/conf/log4j.properties":
     ensure  => 'present',
-    mode    => '644',
+    mode    => '0644',
     owner   => 'root',
     group   => 'root',
-    replace => 'true',
+    replace => true,
     source  => 'puppet:///modules/wowza/log4j.properties',
   }
 }
