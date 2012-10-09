@@ -51,4 +51,15 @@ class wowza::install {
     owner  => 'root',
     group  => 'root',
   }
+
+  #Change log configuration to log statistics in an awstats understandable format
+  #Also create logs for each separate vhost and applications
+  file { "${::wowza::installdir}/conf/log4j.properties":
+    ensure  => 'present',
+    mode    => '644',
+    owner   => 'root',
+    group   => 'root',
+    replace => 'true',
+    source  => 'puppet:///modules/wowza/log4j.properties',
+  }
 }
