@@ -12,10 +12,3 @@ class wowza (
     class {'wowza::service':;}
 
 }
-
-class wowza::disable inherits wowza{
-  Service['WowzaMediaServer'] {
-    ensure => 'stopped' ,
-    enable => false,
-  }
-}

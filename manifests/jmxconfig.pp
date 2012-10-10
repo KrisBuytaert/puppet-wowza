@@ -7,7 +7,7 @@ class wowza::jmxconfig (
     path    => "${wowza::params::installdir}/conf/Server.xml",
     owner   => 'root',
     group   => 'root',
-    mode    => '644',
+    mode    => '0644',
     content => template('wowza/Server.xml.erb'),
   }
 }
