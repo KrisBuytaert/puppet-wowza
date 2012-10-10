@@ -4,24 +4,16 @@ class wowza (
   $wowza_pkg = $wowza::params::wowza_pkg
 ) inherits wowza::params {
 
-  include wowza::install
-  include wowza::setenv
+  class {'wowza::install':;} ~>
+    class {'wowza::serverconfig':;} ~>
+    class {'wowza::setenv':;} ~>
+    class {'wowza::service':;}
 
-  file { '/usr/local/WowzaMediaServer/conf/Server.license':
-    require => Package[$wowza_pkg],
-    content => $wowzakey,
-  }
-
-  service {
-    'WowzaMediaServer':
-      ensure => 'running' ,
-      enable => 'true',
-  }
 }
 
 class wowza::disable inherits wowza{
   Service['WowzaMediaServer'] {
     ensure => 'stopped' ,
-    enable => 'false',
+    enable => false,
   }
 }

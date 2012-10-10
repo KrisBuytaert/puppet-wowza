@@ -8,5 +8,6 @@ class wowza::params {
       $wowza_pkg = 'wowzamediaserver-3.1.2'
       $java_pkg = 'openjdk-6-jre'
     }
+    default: { fail("Unsupported OS ${::operatingsystem}") }
   }
 }
