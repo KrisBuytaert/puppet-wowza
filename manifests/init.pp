@@ -8,7 +8,6 @@ class wowza (
   class {'wowza::install':;} ~>
     class {'wowza::serverconfig':;} ~>
     class {'wowza::setenv':;} ~>
-    class {'wowza::jmxconfig':;} ~>
     class {'wowza::service':;}
 
 }
