@@ -1,7 +1,7 @@
 define wowza::configfile (
   $ensure  = present,
   $content = '',
-  $source  = '') inherits wowza::params {
+  $source  = '') {
 
   if($content == '') and ($source == '') {
     fail('wowza::configfile must set content or source')
@@ -16,7 +16,7 @@ define wowza::configfile (
     file {
       "${wowza::params::configdir}/${name}":
         ensure  => $ensure,
-        content => template($content),
+        content => $content,
         mode    => '0644',
         owner   => 'root',
         group   => 'root',
