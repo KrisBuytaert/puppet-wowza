@@ -20,6 +20,7 @@ define wowza::configfile (
         mode    => '0644',
         owner   => 'root',
         group   => 'root',
+        notify  => Class['wowza::service'],
     }
   }
 
@@ -32,6 +33,7 @@ define wowza::configfile (
         mode    => '0644',
         owner   => 'root',
         group   => 'root',
+        notify  => Class['wowza::service'],
     }
   }
 }
