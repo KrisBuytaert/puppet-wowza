@@ -14,7 +14,7 @@ define wowza::configfile (
   if($content != '')
   {
     file {
-      "${wowza::params::configdir}/${name}":
+      "${wowza::configdir}/${name}":
         ensure  => $ensure,
         content => $content,
         mode    => '0644',
@@ -27,7 +27,7 @@ define wowza::configfile (
   if($source != '')
   {
     file {
-      "${wowza::params::configdir}/${name}":
+      "${wowza::configdir}/${name}":
         ensure  => $ensure,
         source  => $source,
         mode    => '0644',
