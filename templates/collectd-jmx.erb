@@ -1,3 +1,4 @@
+LoadPlugin java
 <Plugin java>
     JVMArg "-verbose:jni"
     JVMArg "-Djava.class.path=/usr/share/collectd/java/collectd-api.jar:/usr/share/collectd/java/generic-jmx.jar"
@@ -588,10 +589,10 @@
         </MBean>
 
         <Connection>
-            Host "<%= scope.lookupvar("wowza::jmxhost") %>"
-            ServiceURL "<%= scope.lookupvar("wowza::jmxservice_url") %>"
-            User "<%= scope.lookupvar("wowza::jmxservice_user") %>"
-            Password "<%= scope.lookupvar("wowza::jmxservice_password") %>"
+            Host "<%= scope.lookupvar("jmxhost") %>"
+            ServiceURL "<%= scope.lookupvar("jmxservice_url") %>"
+            User "<%= scope.lookupvar("jmxservice_user") %>"
+            Password "<%= scope.lookupvar("jmxservice_password") %>"
             Collect "garbage_collector"
             Collect "memory"
             Collect "memory_pool"
