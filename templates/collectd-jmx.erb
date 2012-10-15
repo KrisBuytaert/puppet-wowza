@@ -589,10 +589,10 @@ LoadPlugin java
         </MBean>
 
         <Connection>
-            Host "<%= scope.lookupvar("jmxhost") %>"
-            ServiceURL "<%= scope.lookupvar("jmxservice_url") %>"
-            User "<%= scope.lookupvar("jmxservice_user") %>"
-            Password "<%= scope.lookupvar("jmxservice_password") %>"
+            Host "<%= scope.lookupvar("collectd::java::jmxhost") %>"
+            ServiceURL "<%= scope.lookupvar("collectd::java::jmxservice_url") %>"
+            User "<%= scope.lookupvar("collectd::java::jmxservice_user") %>"
+            Password "<%= scope.lookupvar("collectd::java::jmxservice_password") %>"
             Collect "garbage_collector"
             Collect "memory"
             Collect "memory_pool"
