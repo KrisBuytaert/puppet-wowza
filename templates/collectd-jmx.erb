@@ -589,7 +589,7 @@ LoadPlugin java
         </MBean>
 
         <Connection>
-            Host "<%= jmxhost %>"
+            Host "<%= scope.lookupvar('collectd::java::jmxhost') %>"
             ServiceURL "<%= jmxservice_url %>"
             User "<%= jmxservice_user %>"
             Password "<%= jmxservice_password %>"
