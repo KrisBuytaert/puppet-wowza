@@ -71,7 +71,7 @@
 				</Property>
 				<Property>
 					<Name>streamName</Name>
-                    <Value><%= scope.loopupvar('wowza::loadtest_streamname') %></Value>
+                    <Value><%= scope.lookupvar('wowza::loadtest_streamname') %></Value>
 				</Property>
 				<Property>
 					<Name>streamExt</Name>
@@ -102,7 +102,7 @@
 				</Property>
 				<Property>
 					<Name>ipAddress</Name>
-                    <Value><%= scope.loopupvar('wowza::loadtest_target') %></Value>
+                    <Value><%= scope.lookupvar('wowza::loadtest_target') %></Value>
 				</Property>
 				<Property>
 					<Name>ports</Name>
