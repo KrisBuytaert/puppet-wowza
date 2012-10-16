@@ -5,6 +5,11 @@ class wowza::params {
   $java_heap_size = '1200M'
   $enable_jmxremote = 'false'
 
+  #Load test params
+  $loadtest_workercount = '1'
+  $loadtest_streamname  = 'myStream'
+  $loadtest_target      = 'mywowza.server'
+
   case $::operatingsystem {
     /(?i:debian)/: {
       $wowza_pkg = 'wowzamediaserver-3.1.2'
