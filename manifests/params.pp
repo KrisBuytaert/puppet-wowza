@@ -3,7 +3,6 @@ class wowza::params {
   $installdir = '/usr/local/WowzaMediaServer'
   $configdir  = "${wowza::params::installdir}/conf/"
   $java_heap_size = '1200M'
-  $enable_jmxremote = 'false'
 
   #Load test params
   $loadtest_workercount = '1'

@@ -5,7 +5,11 @@ class wowza (
   $wowza_pkg = $wowza::params::wowza_pkg,
   $loadtest_workercount = $wowza::params::loadtest_workercount,
   $loadtest_streamname  = $wowza::params::loadtest_streamname,
-  $loadtest_target      = $wowza::params::loadtest_target
+  $loadtest_target      = $wowza::params::loadtest_target,
+  $jmxhost             = '',
+  $jmxservice_url      = '',
+  $jmxservice_user     = '',
+  $jmxservice_password = ''
 ) inherits wowza::params {
 
   class {'wowza::install':;} ~>

@@ -588,10 +588,10 @@
         </MBean>
 
         <Connection>
-            Host "<%= jmxhost %>"
-            ServiceURL "<%= jmxservice_url %>"
-            User "<%= jmxservice_user %>"
-            Password "<%= jmxservice_password %>"
+            Host "<%= scope.lookupvar("wowza::jmxhost") %>"
+            ServiceURL "<%= scope.lookupvar("wowza::jmxservice_url") %>"
+            User "<%= scope.lookupvar("wowza::jmxservice_user") %>"
+            Password "<%= scope.lookupvar("wowza::jmxservice_password") %>"
             Collect "garbage_collector"
             Collect "memory"
             Collect "memory_pool"
