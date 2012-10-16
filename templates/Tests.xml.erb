@@ -6,7 +6,7 @@
 			<Properties>
 				<Property>
 					<Name>workerCount</Name>
-                    <Value><%= loadtest_workercount %></Value>
+                    <Value><%= scope.lookupvar('wowza::loadtest_workercount') %></Value>
 					<Type>Integer</Type>
 				</Property>
 				<Property>
@@ -16,7 +16,7 @@
 				</Property>
 				<Property>
 					<Name>streamName</Name>
-                    <Value><%= loadtest_streamname %></Value>
+                    <Value><%= scope.lookupvar('wowza::loadtest_streamname') %></Value>
 				</Property>
 				<Property>
 					<Name>streamExt</Name>
@@ -47,7 +47,7 @@
 				</Property>
 				<Property>
 					<Name>ipAddress</Name>
-                    <Value><%= loadtest_target %></Value>
+                    <Value><%= scope.lookupvar('wowza::loadtest_target') %></Value>
 				</Property>
 				<Property>
 					<Name>ports</Name>
@@ -61,7 +61,7 @@
 			<Properties>
 				<Property>
 					<Name>workerCount</Name>
-                    <Value><%= loadtest_workercount %></Value>
+                    <Value><%= scope.lookupvar('wowza::loadtest_workercount') %></Value>
 					<Type>Integer</Type>
 				</Property>
 				<Property>
@@ -71,7 +71,7 @@
 				</Property>
 				<Property>
 					<Name>streamName</Name>
-                    <Value><%= loadtest_streamname %></Value>
+                    <Value><%= scope.loopupvar('wowza::loadtest_streamname') %></Value>
 				</Property>
 				<Property>
 					<Name>streamExt</Name>
@@ -102,7 +102,7 @@
 				</Property>
 				<Property>
 					<Name>ipAddress</Name>
-                    <Value><%= loadtest_target %></Value>
+                    <Value><%= scope.loopupvar('wowza::loadtest_target') %></Value>
 				</Property>
 				<Property>
 					<Name>ports</Name>
