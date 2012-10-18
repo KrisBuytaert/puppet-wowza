@@ -2,7 +2,7 @@ define wowza::application (
   $streamtype = 'live',
   $livestreampacketizers = 'cupertinostreamingpacketizer, smoothstreamingpacketizer',
   $playmethod = 'none') {
-  
+
   # Create application folder
   file { "${wowza::params::installdir}/applications/${name}":
     ensure => 'directory',
