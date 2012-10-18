@@ -2,7 +2,7 @@ class wowza::service {
 
   service {
     'WowzaMediaServer':
-      ensure => 'running' ,
+      ensure    => 'running',
+      enable    => $wowza::enable;
   }
 }
-

@@ -4,6 +4,9 @@ class wowza::params {
   $configdir  = "${wowza::params::installdir}/conf/"
   $java_heap_size = '1200M'
 
+  # Start service at boot
+  $enable = true
+
   # Load test params
   $loadtest_ensure      = absent
   $loadtest_workercount = '1'
