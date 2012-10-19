@@ -1,11 +1,19 @@
 define wowza::application (
+  $ensure     = present,
   $streamtype = 'live',
   $livestreampacketizers = 'cupertinostreamingpacketizer, smoothstreamingpacketizer',
   $playmethod = 'none') {
 
+  $dir_ensure = $ensure ? {
+    present => 'directory',
+    true    => 'directory',
+    default => 'absent',
+  }
+
   # Create application folder
   file { "${wowza::params::installdir}/applications/${name}":
-    ensure => 'directory',
+    ensure => $dir_ensure,
+    force  => true,
     owner  => 'root',
     group  => 'root',
     mode   => '0755',
@@ -13,14 +21,15 @@ define wowza::application (
 
   # Create application config file and folder
   file { "${wowza::params::installdir}/conf/${name}":
-    ensure => 'directory',
+    ensure => $dir_ensure,
+    force  => true,
     owner  => 'root',
     group  => 'root',
     mode   => '0755';
   }
 
   file { "${wowza::params::installdir}/conf/${name}/Application.xml":
-    ensure  => 'file',
+    ensure  => $ensure,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
