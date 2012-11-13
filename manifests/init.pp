@@ -8,6 +8,13 @@ class wowza (
   $loadtest_streamname  = $wowza::params::loadtest_streamname,
   $loadtest_target      = $wowza::params::loadtest_target,
 ) inherits wowza::params {
+  # This is the main wowza class.
+  # This module is used to set up a wowza streaming serverconfig
+  #
+  # ==Actions
+  # Install a wowza streaming server with basic config
+  #
+
 
   class {'wowza::install':;} ~>
     class {'wowza::serverconfig':;} ~>
