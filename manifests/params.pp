@@ -3,6 +3,7 @@ class wowza::params {
   $installdir = '/usr/local/WowzaMediaServer'
   $configdir  = "${wowza::params::installdir}/conf/"
   $java_heap_size = '1200M'
+  $wowza_pkg_version = '3.1.2'
 
   # Start service at boot
   $enable = true
@@ -15,8 +16,8 @@ class wowza::params {
 
   case $::operatingsystem {
     /(?i:debian)/: {
-      $wowza_pkg        = 'wowzamediaserver-3.1.2'
-      $loadtest_package = 'wowzamediaserver-loadtest-3.1.2'
+      $wowza_pkg        = "wowzamediaserver-${wowza::params::wowza_pkg_version}"
+      $loadtest_package = "wowzamediaserver-loadtest-${wowza::params::wowza_pkg_version}"
       $java_pkg         = 'openjdk-6-jre'
     }
     default: { fail("Unsupported OS ${::operatingsystem}") }
