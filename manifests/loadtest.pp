@@ -1,10 +1,9 @@
 class wowza::loadtest (
   $ensure      = present
-)
-{
-
+) {
+  $wowza_load = "${::wowza::loadtest_package}-${::wowza::wowza_pkg_version}"
   package {
-    $wowza::params::loadtest_package:
+    $wowza_load:
       ensure => $ensure;
   }
 
@@ -13,5 +12,4 @@ class wowza::loadtest (
         ensure  => $ensure,
         content => template('wowza/Tests.xml.erb');
   }
-
 }

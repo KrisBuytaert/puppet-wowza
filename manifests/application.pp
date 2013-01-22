@@ -2,7 +2,9 @@ define wowza::application (
   $ensure     = present,
   $streamtype = 'live',
   $livestreampacketizers = 'cupertinostreamingpacketizer, smoothstreamingpacketizer',
-  $playmethod = 'none') {
+  $playmethod = 'none',
+  $storagedir = undef,
+) {
 
   $dir_ensure = $ensure ? {
     present => 'directory',
