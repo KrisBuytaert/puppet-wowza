@@ -1,0 +1,169 @@
+#!/bin/bash
+#
+# Startup script for Wowza Media Server
+#
+# chkconfig: - 80 20
+# description: Wowza Media Server is a media server
+#
+#### BEGIN INIT INFO
+# Provides:          WowzaMediaServer
+# Required-Start:    $syslog $time $local_fs $remote_fs
+# Required-Stop:     $syslog $time $local_fs $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      S 0 1 6
+# Short-Description: Wowza Media Server 3 Init Script
+# Description:       Wowza Media Server 3 Init Script
+### END INIT INFO
+
+WMCOMMAND=${1}
+
+FUNCTIONS_EXIST=false
+if [ -f /etc/rc.d/init.d/functions ] ; then
+     . /etc/rc.d/init.d/functions
+     FUNCTIONS_EXIST=true
+fi
+if [ -f /etc/init.d/functions ] ; then
+     . /etc/init.d/functions
+     FUNCTIONS_EXIST=true
+fi
+
+if ! $FUNCTIONS_EXIST ; then
+failure() {
+  return 0
+}
+success() {
+  return 0
+}
+fi
+
+# define vars
+RETVAL=0
+WMSBASE_NAME=WowzaMediaServer
+#WMSCONFIG_SCRIPT="/etc/WowzaMediaServer/$WMSBASE_NAME.conf"
+WMSCONFIG_SCRIPT="/usr/local/WowzaMediaServer/bin/setenv.sh"
+WMSLICENSE_FILE="/usr/local/WowzaMediaServer/conf/Server.license"
+AMAZONEC2_INSTALL_SCRIPT="/usr/local/WowzaMediaServer/bin/AmazonEC2Install.sh"
+WMSDAEMON_CMD=/usr/bin/WowzaMediaServerd
+WMSPID_FILE="/var/run/$WMSBASE_NAME.pid"
+WMSLOCK_FILE="/var/run/$WMSBASE_NAME"
+if test -w "/var/lock/subsys" ; then
+	WMSLOCK_FILE="/var/lock/subsys/$WMSBASE_NAME"
+fi
+SHUTDOWN_WAIT=20
+
+[ -r "$WMSCONFIG_SCRIPT" ] && . "$WMSCONFIG_SCRIPT"
+
+if ! test -f "${WMSLICENSE_FILE}" ; then
+        echo ""
+        echo "ERROR: Missing license file: (${WMSLICENSE_FILE})"
+        echo "You must first run Wowza Media Server 3 in "
+        echo "standalone mode to enter serial number. Execute the "
+        echo "following commands to run in standalone mode:"
+        echo ""
+        echo "cd /usr/local/WowzaMediaServer"
+        echo "./startup.sh"
+        echo ""
+        exit 0
+fi
+
+testjava=`which ${_EXECJAVA} 2>/dev/null`
+if ! test -f "$testjava" ; then
+	echo ""
+	echo "ERROR: The Java command (${_EXECJAVA}) could not be found."
+	echo "Search path: $PATH"
+	echo "In most cases this problem can be fixed by adding a symbolic "
+	echo "link to the Java command in the /usr/bin directory. "
+	echo "To do this first execute the command \"which java\" to identify "
+	echo "the full path to the Java executable. Next, create a symbolic "
+	echo "link to this file with the command"
+	echo "\"ln -sf [path-to-java] /usr/bin/java\" where [path-to-java] is "
+	echo "the path returned by the \"which\" command."
+	echo ""
+	exit 0
+fi
+
+#
+start() {
+
+if [ -f $WMSPID_FILE ]; then
+	read kpid < $WMSPID_FILE
+	kill -9 $kpid
+	echo $"$WMSBASE_NAME is already running ($kpid): stopping"
+	rm -f $WMSPID_FILE
+fi
+
+echo -n $"$WMSBASE_NAME: starting"
+#$AMAZONEC2_INSTALL_SCRIPT
+$WMSDAEMON_CMD $WMSCONFIG_SCRIPT $WMSPID_FILE start >/dev/null 2>&1 &
+success "$WMSBASE_NAME startup"
+echo
+touch $WMSLOCK_FILE
+
+return 0
+}
+
+stop() {
+
+if [ -f $WMSPID_FILE ]; then
+
+	echo -n $"$WMSBASE_NAME: stopping"
+	read kpid < $WMSPID_FILE
+
+
+	$WMSDAEMON_CMD $WMSCONFIG_SCRIPT $WMSPID_FILE stop >/dev/null 2>&1 &
+
+	let kwait=$SHUTDOWN_WAIT
+	count=0;
+	until [ `ps -p $kpid | grep -c $kpid` = '0' ] || [ $count -gt $kwait ]
+	do
+		echo -n -e "\nwaiting for processes to exit";
+		sleep 1
+		let count=$count+1;
+	done
+
+	if [ $count -gt $kwait ]; then
+		echo -n -e "\nkilling processes which didn't stop after $SHUTDOWN_WAIT seconds"
+		kill -9 $kpid
+	fi
+
+	rm -f $WMSPID_FILE
+	success "$WMSBASE_NAME shutdown"
+else
+	echo -n $"$WMSBASE_NAME: not running"
+fi
+echo
+rm -f $WMSLOCK_FILE
+return 0
+}
+
+localstatus() {
+if [ -f $WMSLOCK_FILE ]; then
+	echo "$WMSBASE_NAME started"
+        RETVAL=0
+else
+	echo "$WMSBASE_NAME stopped"
+        RETVAL=1
+fi
+}
+
+# See how we were called.
+case "$WMCOMMAND" in
+start)
+start
+;;
+stop)
+stop
+;;
+status)
+localstatus
+;;
+restart)
+stop
+start
+;;
+*)
+echo $"Usage: $WMSBASE_NAME {start|stop|restart|status}"
+exit 1
+esac
+
+exit $RETVAL

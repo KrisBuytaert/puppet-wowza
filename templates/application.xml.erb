@@ -25,7 +25,11 @@
 		-->
 		<Streams>
             <StreamType><%= streamtype %></StreamType>
-			<StorageDir>${com.wowza.wms.context.VHostConfigHome}/content</StorageDir>
+            <% if storagedir %>
+                <StorageDir><%= storagedir %></StorageDir>
+            <% else %>
+                <StorageDir>${com.wowza.wms.context.VHostConfigHome}/content</StorageDir>
+            <% end %>
 			<KeyDir>${com.wowza.wms.context.VHostConfigHome}/keys</KeyDir>
 			<!-- LiveStreamPacketizers (separate with commas): cupertinostreamingpacketizer, smoothstreamingpacketizer, sanjosestreamingpacketizer, cupertinostreamingrepeater, smoothstreamingrepeater, sanjosestreamingrepeater, dvrstreamingpacketizer, dvrstreamingrepeater -->
             <LiveStreamPacketizers><%= livestreampacketizers %></LiveStreamPacketizers>

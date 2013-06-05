@@ -21,9 +21,7 @@ This adds a live stream application, defaults all work for a standard live strea
 also the only thing supported:
 
 <pre><code>
-class { 'wowza::config':
-  application => 'live';
-}
+wowza::application { 'live'}
 </code></pre>
 
 ### Set Java Heap size
