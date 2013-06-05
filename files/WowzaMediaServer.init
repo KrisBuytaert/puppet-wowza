@@ -27,6 +27,11 @@ if [ -f /etc/init.d/functions ] ; then
      FUNCTIONS_EXIST=true
 fi
 
+if [ "$(whoami)" != "root" ]; then
+	echo "Sorry, you must run this script as root."
+	exit 1
+fi
+
 if ! $FUNCTIONS_EXIST ; then
 failure() {
   return 0
