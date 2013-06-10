@@ -14,14 +14,14 @@
 		</Connections>
 		<!--
 			StorageDir path variables
-			
+
 			${com.wowza.wms.AppHome} - Application home directory
 			${com.wowza.wms.ConfigHome} - Configuration home directory
 			${com.wowza.wms.context.VHost} - Virtual host name
 			${com.wowza.wms.context.VHostConfigHome} - Virtual host config directory
 			${com.wowza.wms.context.Application} - Application name
 			${com.wowza.wms.context.ApplicationInstance} - Application instance name
-			
+
 		-->
 		<Streams>
             <StreamType><%= streamtype %></StreamType>
@@ -150,7 +150,7 @@
 		<Repeater>
 			<OriginURL></OriginURL>
 			<QueryString><![CDATA[]]></QueryString>
-		</Repeater> 
+		</Repeater>
 		<Modules>
 			<Module>
 				<Name>base</Name>
@@ -171,10 +171,23 @@
 				<Name>flvplayback</Name>
 				<Description>FLVPlayback</Description>
 				<Class>com.wowza.wms.module.ModuleFLVPlayback</Class>
-			</Module> 
+			</Module>
+			<% if @rtmp_protect == "true" -%>
+			<Module>
+				<Name>ModuleRTMPAuthenticate</Name>
+				<Description>ModuleRTMPAuthenticate</Description>
+				<Class>com.wowza.wms.security.ModuleRTMPAuthenticate</Class>
+			</Module>
+			<% end -%>
 		</Modules>
 		<!-- Properties defined here will be added to the IApplication.getProperties() and IApplicationInstance.getProperties() collections -->
 		<Properties>
+		<% if @rtmp_protect == "true" -%>
+			<Property>
+				<Name>rtmpEncoderAuthenticateFile</Name>
+				<Value>${com.wowza.wms.context.VHostConfigHome}/conf/${com.wowza.wms.context.Application}/publish.password</Value>
+			</Property>
+		<% end -%>
 		</Properties>
 	</Application>
 </Root>
