@@ -3,7 +3,7 @@ define wowza::application (
   $streamtype = 'live',
   $livestreampacketizers = 'cupertinostreamingpacketizer, smoothstreamingpacketizer',
   $playmethod = 'none',
-  $rtmp_protect = "false",
+  $rtmp_protect = 'false',
   $storagedir = undef,
 ) {
 
@@ -47,7 +47,7 @@ define wowza::application (
       group => 'root',
       mode => '0644',
       replace => false,
-      content => "puppet:///modules/wowza/publish.password";
+      source => 'puppet:///modules/wowza/publish.password';
     }
   }
 }
