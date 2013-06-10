@@ -3,6 +3,7 @@ define wowza::application (
   $streamtype = 'live',
   $livestreampacketizers = 'cupertinostreamingpacketizer, smoothstreamingpacketizer',
   $playmethod = 'none',
+  $rtmp_protect = 'false',
   $storagedir = undef,
 ) {
 
@@ -37,5 +38,16 @@ define wowza::application (
     mode    => '0644',
     content => template('wowza/application.xml.erb'),
     notify  => Service['WowzaMediaServer'];
+  }
+
+  if $rtmp_protect == "true" {
+    file { "${wowza::params::installdir}/conf/${name}/publish.password":
+      ensure => $ensure,
+      owner => 'root',
+      group => 'root',
+      mode => '0644',
+      replace => false,
+      source => 'puppet:///modules/wowza/publish.password';
+    }
   }
 }
