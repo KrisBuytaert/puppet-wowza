@@ -1,12 +1,12 @@
 define wowza::application (
-  $ensure     = present,
-  $streamtype = 'live',
-  $livestreampacketizers = 'cupertinostreamingpacketizer, smoothstreamingpacketizer',
-  $playmethod = 'none',
-  $rtmp_protect = 'false',
-  $user = 'root',
-  $group = 'root',
-  $storagedir = undef,
+  $ensure                 = present,
+  $streamtype             = 'live',
+  $livestreampacketizers  = 'cupertinostreamingpacketizer, smoothstreamingpacketizer',
+  $playmethod             = 'none',
+  $rtmp_protect           = false,
+  $user                   = 'root',
+  $group                  = 'root',
+  $storagedir             = undef,
 ) {
 
   $dir_ensure = $ensure ? {
@@ -42,14 +42,14 @@ define wowza::application (
     notify  => Service['WowzaMediaServer'];
   }
 
-  if $rtmp_protect == "true" {
+  if $rtmp_protect {
     file { "${wowza::params::installdir}/conf/${name}/publish.password":
-      ensure => $ensure,
-      owner => $user,
-      group => $group,
-      mode => '0644',
+      ensure  => $ensure,
+      owner   => $user,
+      group   => $group,
+      mode    => '0644',
       replace => false,
-      source => 'puppet:///modules/wowza/publish.password';
+      source  => 'puppet:///modules/wowza/publish.password';
     }
   }
 }

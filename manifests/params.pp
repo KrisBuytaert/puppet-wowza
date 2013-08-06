@@ -12,8 +12,8 @@ class wowza::params {
 
   case $::operatingsystem {
     /(?i:debian)/: {
-      $wowza_pkg        = "wowzamediaserver"
-      $loadtest_package = "wowzamediaserver-loadtest"
+      $wowza_pkg        = 'wowzamediaserver'
+      $loadtest_package = 'wowzamediaserver-loadtest'
       $java_pkg         = 'openjdk-6-jre'
     }
     default: { fail("Unsupported OS ${::operatingsystem}") }

@@ -30,7 +30,7 @@ VOD :
 
 ```
 wowza::application {'default':
-	rtmp_protect = true
+	rtmp_protect => true
 }
 ```
 
