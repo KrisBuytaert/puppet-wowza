@@ -17,12 +17,22 @@ class { 'wowza':
 
 ### Add Wowza application
 
-This adds a live stream application, defaults all work for a standard live streaming application. At the moment this is
-also the only thing supported:
+This adds a wowza application, defaults all work for a standard live streaming application. You can also use this to define a 
+video on demand application by using the default type.
+
+Live :
 
 <pre><code>
 wowza::application { 'live'}
 </code></pre>
+
+VOD :
+
+```
+wowza::application {'default':
+	rtmp_protect => true
+}
+```
 
 ### Set Java Heap size
 
