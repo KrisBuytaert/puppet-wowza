@@ -49,7 +49,8 @@ define wowza::application (
       group   => $group,
       mode    => '0640',
       replace => false,
-      source  => 'puppet:///modules/wowza/publish.password';
+      source  => 'puppet:///modules/wowza/publish.password',
+      notify  => Service['WowzaMediaServer'];
     }
   }
 }
