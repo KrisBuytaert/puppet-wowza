@@ -47,7 +47,7 @@ define wowza::application (
       ensure  => $ensure,
       owner   => $user,
       group   => $group,
-      mode    => '0644',
+      mode    => '0640',
       replace => false,
       source  => 'puppet:///modules/wowza/publish.password';
     }
