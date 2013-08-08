@@ -39,7 +39,7 @@ define wowza::application (
     group   => $group,
     mode    => '0644',
     content => template('wowza/application.xml.erb'),
-    notify  => Service['WowzaMediaServer'];
+    notify  => Class['wowza::service'];
   }
 
   if $rtmp_protect {
@@ -50,7 +50,7 @@ define wowza::application (
       mode    => '0640',
       replace => false,
       source  => 'puppet:///modules/wowza/publish.password',
-      notify  => Service['WowzaMediaServer'];
+      notify  => Class['wowza::service'];
     }
   }
 }
