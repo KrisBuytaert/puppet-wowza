@@ -1,7 +1,7 @@
 #!/bin/sh
 
 _EXECJAVA=java
-JAVA_OPTS="-Xmx<%= java_heap_size %>"
+JAVA_OPTS="-Xmx<%= scope.lookupvar('wowza::java_heap_size') %>"
 
 # Uncomment to run server environment (faster), Note: will only work if server VM install, comes with JDL
 JAVA_OPTS="$JAVA_OPTS -server"

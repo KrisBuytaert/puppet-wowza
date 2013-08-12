@@ -1,3 +1,5 @@
+
+
 define wowza::application (
   $ensure                 = present,
   $streamtype             = 'live',
@@ -7,6 +9,7 @@ define wowza::application (
   $user                   = 'root',
   $group                  = 'root',
   $storagedir             = undef,
+  $origin_url             = undef,
 ) {
 
   $dir_ensure = $ensure ? {
