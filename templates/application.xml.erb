@@ -1,13 +1,11 @@
 <Root>
 	<Application>
-		<!-- Uncomment to set application level timeout values
-		<ApplicationTimeout>60000</ApplicationTimeout>
-		<PingTimeout>12000</PingTimeout>
-		<ValidationFrequency>8000</ValidationFrequency>
+		<ApplicationTimeout><%= @applicationtimeout %></ApplicationTimeout>
+		<PingTimeout><%= @pingtimeout %></PingTimeout>
+		<ValidationFrequency><%= @validationfrequency %></ValidationFrequency>
 		<MaximumPendingWriteBytes>0</MaximumPendingWriteBytes>
 		<MaximumSetBufferTime>60000</MaximumSetBufferTime>
 		<MaximumStorageDirDepth>25</MaximumStorageDirDepth>
-		-->
 		<Connections>
 			<AutoAccept>true</AutoAccept>
 			<AllowDomains></AllowDomains>
@@ -24,15 +22,15 @@
 
 		-->
 		<Streams>
-            <StreamType><%= streamtype %></StreamType>
-            <% if storagedir %>
-                <StorageDir><%= storagedir %></StorageDir>
+            <StreamType><%= @streamtype %></StreamType>
+            <% if @storagedir %>
+                <StorageDir><%= @storagedir %></StorageDir>
             <% else %>
                 <StorageDir>${com.wowza.wms.context.VHostConfigHome}/content</StorageDir>
             <% end %>
 			<KeyDir>${com.wowza.wms.context.VHostConfigHome}/keys</KeyDir>
 			<!-- LiveStreamPacketizers (separate with commas): cupertinostreamingpacketizer, smoothstreamingpacketizer, sanjosestreamingpacketizer, cupertinostreamingrepeater, smoothstreamingrepeater, sanjosestreamingrepeater, dvrstreamingpacketizer, dvrstreamingrepeater -->
-            <LiveStreamPacketizers><%= livestreampacketizers %></LiveStreamPacketizers>
+            <LiveStreamPacketizers><%= @livestreampacketizers %></LiveStreamPacketizers>
 			<!-- Properties defined here will override any properties defined in conf/Streams.xml for any streams types loaded by this application -->
 			<Properties>
 			</Properties>
@@ -100,7 +98,7 @@
 			<!-- RTP/Authentication/[type]Methods defined in Authentication.xml. Default setup includes; none, basic, digest -->
 			<Authentication>
 				<PublishMethod>digest</PublishMethod>
-                <PlayMethod><%= playmethod %></PlayMethod>
+                <PlayMethod><%= @playmethod %></PlayMethod>
 			</Authentication>
 			<!-- RTP/AVSyncMethod. Valid values are: senderreport, systemclock, rtptimecode -->
 			<AVSyncMethod>senderreport</AVSyncMethod>
@@ -148,7 +146,11 @@
 			</Properties>
 		</HTTPStreamer>
 		<Repeater>
+			<% if @origin_url -%>
+			<OriginURL><%= @origin_url %></OriginURL>
+			<% else -%>
 			<OriginURL></OriginURL>
+			<% end -%>
 			<QueryString><![CDATA[]]></QueryString>
 		</Repeater>
 		<Modules>
@@ -172,7 +174,7 @@
 				<Description>FLVPlayback</Description>
 				<Class>com.wowza.wms.module.ModuleFLVPlayback</Class>
 			</Module>
-			<% if rtmp_protect == "true" -%>
+			<% if @rtmp_protect -%>
 			<Module>
 				<Name>ModuleRTMPAuthenticate</Name>
 				<Description>ModuleRTMPAuthenticate</Description>
@@ -182,7 +184,7 @@
 		</Modules>
 		<!-- Properties defined here will be added to the IApplication.getProperties() and IApplicationInstance.getProperties() collections -->
 		<Properties>
-		<% if rtmp_protect == "true" -%>
+		<% if @rtmp_protect -%>
 			<Property>
 				<Name>rtmpEncoderAuthenticateFile</Name>
 				<Value>${com.wowza.wms.context.VHostConfigHome}/conf/${com.wowza.wms.context.Application}/publish.password</Value>
