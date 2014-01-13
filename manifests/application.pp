@@ -1,5 +1,3 @@
-
-
 define wowza::application (
   $ensure                 = present,
   $streamtype             = 'live',
@@ -8,6 +6,9 @@ define wowza::application (
   $rtmp_protect           = false,
   $user                   = 'root',
   $group                  = 'root',
+  $applicationtimeout     = '60000',
+  $pingtimeout            = '12000',
+  $validationfrequency    = '8000',
   $storagedir             = undef,
   $origin_url             = undef,
 ) {

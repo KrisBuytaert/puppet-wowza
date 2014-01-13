@@ -1,13 +1,11 @@
 <Root>
 	<Application>
-		<!-- Uncomment to set application level timeout values
-		<ApplicationTimeout>60000</ApplicationTimeout>
-		<PingTimeout>12000</PingTimeout>
-		<ValidationFrequency>8000</ValidationFrequency>
+		<ApplicationTimeout><%= @applicationtimeout %></ApplicationTimeout>
+		<PingTimeout><%= @pingtimeout %></PingTimeout>
+		<ValidationFrequency><%= @validationfrequency %></ValidationFrequency>
 		<MaximumPendingWriteBytes>0</MaximumPendingWriteBytes>
 		<MaximumSetBufferTime>60000</MaximumSetBufferTime>
 		<MaximumStorageDirDepth>25</MaximumStorageDirDepth>
-		-->
 		<Connections>
 			<AutoAccept>true</AutoAccept>
 			<AllowDomains></AllowDomains>
