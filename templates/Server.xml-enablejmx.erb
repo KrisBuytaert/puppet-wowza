@@ -1,7 +1,34 @@
-<Root>
+<?xml version="1.0" encoding="UTF-8"?>
+<Root version="2">
 	<Server>
+		<Name>Wowza Streaming Engine</Name>
+		<Description>Wowza Streaming Engine is robust, customizable, and scalable server software that powers reliable streaming of high-quality video and audio to any device, anywhere.</Description>
+		<RESTInterface>
+			<Enable>true</Enable>
+			<IPAddress>*</IPAddress>
+			<Port>8087</Port>
+			<!-- none, basic, digest-->
+			<AuthenticationMethod>digest</AuthenticationMethod>
+			<DiagnosticURLEnable>true</DiagnosticURLEnable>
+			<SSLConfig>
+				<Enable>false</Enable>
+				<KeyStorePath></KeyStorePath>
+				<KeyStorePassword></KeyStorePassword>
+				<KeyStoreType>JKS</KeyStoreType>
+				<SSLProtocol>TLS</SSLProtocol>
+				<Algorithm>SunX509</Algorithm>
+				<CipherSuites></CipherSuites>
+				<Protocols></Protocols>
+			</SSLConfig>
+			<IPWhiteList>127.0.0.1</IPWhiteList>
+			<IPBlackList></IPBlackList>
+			<EnableXMLFile>false</EnableXMLFile>
+			<Properties>
+			</Properties>
+		</RESTInterface>
 		<CommandInterface>
 			<HostPort>
+				<ProcessorCount>${com.wowza.wms.TuningAuto}</ProcessorCount>
 				<IpAddress>*</IpAddress>
 				<Port>8083</Port>
 			</HostPort>
@@ -10,11 +37,14 @@
 			<!-- Objects exposed through JMX interface: Server, VHost, VHostItem, Application, ApplicationInstance, MediaCaster, Module, Client, MediaStream, SharedObject, Acceptor, IdleWorker -->
 			<ObjectList>Server,VHost,VHostItem,Application,ApplicationInstance,MediaCaster,Module,IdleWorker</ObjectList>
 		</AdminInterface>
+		<Stats>
+			<Enable>true</Enable>
+		</Stats>
 		<!-- JMXUrl: service:jmx:rmi://localhost:8084/jndi/rmi://localhost:8085/jmxrmi -->
 		<JMXRemoteConfiguration>
-            <Enable>true</Enable>
-			<IpAddress>localhost</IpAddress> <!-- set to localhost or internal ip address if behind NAT -->
-            <RMIServerHostName><%= ipaddress %></RMIServerHostName> <!-- set to external ip address or domain name if behind NAT -->
+			<Enable>true</Enable>
+			<IpAddress><%= @ipaddress %></IpAddress> <!-- set to localhost or internal ip address if behind NAT -->
+			<RMIServerHostName>localhost</RMIServerHostName> <!-- set to external ip address or domain name if behind NAT -->
 			<RMIConnectionPort>8084</RMIConnectionPort>
 			<RMIRegistryPort>8085</RMIRegistryPort>
 			<Authenticate>true</Authenticate>
@@ -23,7 +53,13 @@
 			<SSLSecure>false</SSLSecure>
 		</JMXRemoteConfiguration>
 		<UserAgents>Shockwave Flash|CFNetwork|MacNetwork/1.0 (Macintosh)</UserAgents>
+		<Streams>
+			<DefaultStreamPrefix>mp4</DefaultStreamPrefix>
+		</Streams>
 		<ServerListeners>
+			<ServerListener>
+				<BaseClass>com.wowza.wms.mediacache.impl.MediaCacheServerListener</BaseClass>
+			</ServerListener>
 			<!--
 			<ServerListener>
 				<BaseClass>com.wowza.wms.plugin.loadbalancer.ServerListenerLoadBalancerListener</BaseClass>
@@ -41,17 +77,24 @@
 				<BaseClass></BaseClass>
 			</VHostListener>
 			-->
-		</VHostListeners> 
+		</VHostListeners>
 		<HandlerThreadPool>
-			<PoolSize>10</PoolSize>
+			<PoolSize>${com.wowza.wms.TuningAuto}</PoolSize>
 		</HandlerThreadPool>
 		<TransportThreadPool>
-			<PoolSize>10</PoolSize>
+			<PoolSize>${com.wowza.wms.TuningAuto}</PoolSize>
 		</TransportThreadPool>
 		<RTP>
 			<DatagramStartingPort>6970</DatagramStartingPort>
 			<DatagramPortSharing>false</DatagramPortSharing>
 		</RTP>
+
+		<Manager>
+			<!-- Properties defined are used by the Manager -->
+			<Properties>
+			</Properties>
+		</Manager>
+
 		<!-- Properties defined here will be added to the IServer.getProperties() collection -->
 		<Properties>
 		</Properties>

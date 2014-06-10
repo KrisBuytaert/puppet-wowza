@@ -20,7 +20,6 @@ class wowza (
 
   class {'wowza::install':;} ~>
     class {'wowza::serverconfig':;} ~>
-    class {'wowza::config':;} ~>
     class {'wowza::setenv':;} ~>
     class {'wowza::service':;}
 

@@ -1,6 +1,6 @@
 class wowza::serverconfig {
 
-  file { '/usr/local/WowzaMediaServer/conf/Server.license':
+  file { "${::wowza::installdir}/conf/Server.license":
     content => $::wowza::wowzakey,
   }
 

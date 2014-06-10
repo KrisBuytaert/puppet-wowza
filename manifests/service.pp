@@ -1,8 +1,14 @@
 class wowza::service {
 
   service {
-    'WowzaMediaServer':
+    'WowzaStreamingEngine':
       ensure    => 'running',
       enable    => $wowza::enable;
+  }
+
+  service {
+    'WowzaStreamingEngineManager':
+      ensure    => 'running',
+      enable    => $wowza::enable_manager;
   }
 }

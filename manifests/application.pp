@@ -1,5 +1,7 @@
 define wowza::application (
   $ensure                 = present,
+  $appname                = 'live',
+  $apptype                = 'Live',
   $streamtype             = 'live',
   $livestreampacketizers  = 'cupertinostreamingpacketizer, smoothstreamingpacketizer',
   $playmethod             = 'none',

@@ -1,9 +1,10 @@
 class wowza::params {
-  $installdir           = '/usr/local/WowzaMediaServer'
-  $java_heap_size       = '1200M'
-  $wowza_pkg_version    = '3.1.2'
+  $installdir           = '/usr/local/WowzaStreamingEngine'
+  $java_heap_size       = '${com.wowza.wms.TuningHeapSizeProduction}'
+  $wowza_pkg_version    = '4.0.0'
   # Start opencast on boot
   $enable               = true
+  $enable_manager       = true
   $loadtest_ensure      = absent
   $loadtest_workercount = '1'
   $loadtest_streamname  = 'myStream'
@@ -12,9 +13,9 @@ class wowza::params {
 
   case $::operatingsystem {
     /(?i:debian)/: {
-      $wowza_pkg        = 'wowzamediaserver'
-      $loadtest_package = 'wowzamediaserver-loadtest'
-      $java_pkg         = 'openjdk-6-jre'
+      $wowza_pkg        = 'wowzastreamingengine'
+      $loadtest_package = 'wowzastreamingengine-loadtest'
+      $java_pkg         = 'openjdk-7-jre'
     }
     default: { fail("Unsupported OS ${::operatingsystem}") }
   }
