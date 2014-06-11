@@ -17,20 +17,28 @@ class { 'wowza':
 
 ### Add Wowza application
 
-This adds a wowza application, defaults all work for a standard live streaming application. You can also use this to define a 
+This adds a wowza application, defaults all work for a standard live streaming application. You can also use this to define a
 video on demand application by using the default type.
 
 Live :
 
-<pre><code>
-wowza::application { 'live'}
-</code></pre>
+```
+wowza::application { 'live':
+  appname    => 'live',
+  apptype    => 'Live',
+  streamtype => 'live'
+}
+```
 
 VOD :
 
 ```
-wowza::application {'default':
-	rtmp_protect => true
+wowza::application {'vod':
+  appname      => 'videoondemand',
+  apptype      => 'VOD',
+  streamtype   => 'default',
+	rtmp_protect => true,
+  storagedir   => '/var/content'
 }
 ```
 
@@ -38,9 +46,9 @@ wowza::application {'default':
 
 By default it sets the size to 1200M
 
-<pre><code>
+```
 class { 'wowza':
   wowzakey       => $wowzakey,
   java_heap_size => '3000M';
 }
-</code></pre>
+```

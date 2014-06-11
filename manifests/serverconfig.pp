@@ -1,3 +1,7 @@
+# == Class: wowza::serverconfig
+#  Class that does the default configuration for the wowzastreamingengine server.
+#
+
 class wowza::serverconfig {
 
   file { "${::wowza::installdir}/conf/Server.license":

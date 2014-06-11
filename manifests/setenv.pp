@@ -1,3 +1,7 @@
+# == Class: wowza::setenv
+#  Sets the java parameters for the wowzastreamingengine
+#
+
 class wowza::setenv (
   $java_heap_size = $wowza::java_heap_size
 ) inherits wowza::params {

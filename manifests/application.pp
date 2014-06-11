@@ -1,6 +1,73 @@
+# == Define: wowza::application
+# Define a new wowza streaming engine application
+#
+# === Parameters:
+#
+# [*ensure*]
+#    Set a state for this application: present or absent
+#
+# [*appdescription*]
+#    A human readable description for this application
+#
+# [*apptype*]
+#    Set the type of application you want to create: Live, VOD, livehttporigin,
+#    vodhttporigin, liveedge, vodedge
+#
+# [*streamtype*]
+#    Set the stream type: default, file, live, live-lowlatency, live-record,
+#    live-record-lowlatency, liverepeater-edge, liverepeater-edge-lowlatency,
+#    liverepeater-edge-origin, record, rtp-live, rtp-live-lowlatency,
+#    rtp-live-record, rtp-live-record-lowlatency, shoutcast, shoutcast-record
+#    See the wowza user manual for more information regarding the various types.
+#
+# [*livestreampacketizers*]
+#    packetization schemes for incoming live streams, one or multiple entries
+#    are possible ( separated by comma ), possible packetizers:
+#    cupertinostreamingpacketizer, smoothstreamingpacketizer,
+#    sanjosestreamingpacketizer, mpegdashstreamingpacketizer,
+#    cupertinostreamingrepeater, smoothstreamingrepeater,
+#    sanjosestreamingrepeater, mpegdashstreamingrepeater,
+#    dvrstreamingpacketizer, dvrstreamingrepeater
+#    See the wowza configurationreference for more information on the different
+#    packetizers.
+#
+#  [*playmethod*]
+#    Authentication setting for outgoing connections, possible values are:
+#    none, basic and digest
+#
+#  [*rtmp_protect*]
+#    Enable authentication for incoming connections, this setting includes the
+#    necessary plugins for authentication and creates a per application
+#    password file in the application folder.
+#
+#  [*user*]
+#    user to create the files and folder under
+#
+#  [*group*]
+#    group to create the files and folder under
+#
+#  [*applicationtimeout*]
+#    Length of time (in ms) before an application is shut down to which no clients are
+#    connected. Setting this to 0 keeps the application running until the server
+#    is shut down.
+#
+#  [*pingtimeout*]
+#    Time (in ms) that the application will wait for a ping response from the
+#    client.
+#
+#  [*validationfrequency*]
+#    Time (in ms) that the server will wait during server-to-client validation.
+#
+#  [*storagedir*]
+#    Full path to the directory where the application will read/write files from.
+#
+#  [*origin_url*]
+#    origin url when using the application as a live stream repeater.
+#
+
 define wowza::application (
   $ensure                 = present,
-  $appname                = 'live',
+  $appdescription         = 'live stream application',
   $apptype                = 'Live',
   $streamtype             = 'live',
   $livestreampacketizers  = 'cupertinostreamingpacketizer, smoothstreamingpacketizer',
