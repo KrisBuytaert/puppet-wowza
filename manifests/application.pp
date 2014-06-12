@@ -64,6 +64,11 @@
 #  [*origin_url*]
 #    origin url when using the application as a live stream repeater.
 #
+#  [*target_password_file*]
+#    target location for a password file, instead of the default operation ( an
+#    empty password file is created ) a symlink is created to the path provided
+#    in this parameter.
+#
 
 define wowza::application (
   $ensure                 = present,
@@ -80,6 +85,7 @@ define wowza::application (
   $validationfrequency    = '8000',
   $storagedir             = undef,
   $origin_url             = undef,
+  $target_password_file   = undef,
 ) {
 
   $dir_ensure = $ensure ? {
@@ -116,14 +122,32 @@ define wowza::application (
   }
 
   if $rtmp_protect {
-    file { "${wowza::params::installdir}/conf/${name}/publish.password":
-      ensure  => $ensure,
-      owner   => $user,
-      group   => $group,
-      mode    => '0640',
-      replace => false,
-      source  => 'puppet:///modules/wowza/publish.password',
-      notify  => Class['wowza::service'];
+    if $target_password_file {
+
+      $link_ensure = $ensure ? {
+        present => 'link',
+        true    => 'link',
+        default => 'absent',
+      }
+
+      file { "${wowza::params::installdir}/conf/${name}/publish.password":
+        ensure  => $link_ensure,
+        owner   => $user,
+        group   => $group,
+        mode    => '0640',
+        target  => $target_password_file,
+        notify  => Class['wowza::service'];
+      }
+    } else {
+      file { "${wowza::params::installdir}/conf/${name}/publish.password":
+        ensure  => $ensure,
+        owner   => $user,
+        group   => $group,
+        mode    => '0640',
+        replace => false,
+        source  => 'puppet:///modules/wowza/publish.password',
+        notify  => Class['wowza::service'];
+      }
     }
   }
 }
