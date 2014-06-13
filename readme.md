@@ -26,7 +26,8 @@ Live :
 wowza::application { 'live':
   appname    => 'live',
   apptype    => 'Live',
-  streamtype => 'live'
+  streamtype => 'live',
+  rtmp_protect => true,
 }
 ```
 
@@ -37,8 +38,18 @@ wowza::application {'vod':
   appname      => 'videoondemand',
   apptype      => 'VOD',
   streamtype   => 'default',
-	rtmp_protect => true,
   storagedir   => '/var/content'
+}
+```
+
+Livestream Edge
+
+```
+wowza::application {'live-edge':
+  appname    => 'live-edge',
+  apptype    => 'LiveEdge',
+  streamtype => 'liverepeater-edge',
+  origin_url => 'wowz://[serverip]:1935/origin'
 }
 ```
 
