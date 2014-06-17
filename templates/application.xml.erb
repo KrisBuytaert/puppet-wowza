@@ -207,12 +207,17 @@
 				<Description>FLVPlayback</Description>
 				<Class>com.wowza.wms.module.ModuleFLVPlayback</Class>
 			</Module>
-			<% if @rtmp_protect -%>
+			<% if @rtmp_protect or @secure_token -%>
 			<Module>
 				<Name>ModuleRTMPAuthenticate</Name>
 				<Description>ModuleRTMPAuthenticate</Description>
 				<Class>com.wowza.wms.security.ModuleRTMPAuthenticate</Class>
 			</Module>
+			<Module>
+        <Name>ModuleCoreSecurity</Name>
+        <Description>Core Security Module for Applications</Description>
+        <Class>com.wowza.wms.security.ModuleCoreSecurity</Class>
+      </Module>
 			<% end -%>
 		</Modules>
 		<!-- Properties defined here will be added to the IApplication.getProperties() and IApplicationInstance.getProperties() collections -->
@@ -222,6 +227,20 @@
 				<Name>rtmpEncoderAuthenticateFile</Name>
 				<Value>${com.wowza.wms.context.VHostConfigHome}/conf/${com.wowza.wms.context.Application}/publish.password</Value>
 			</Property>
+		<% end -%>
+		<% if @shared_token and @streamtype == 'live' -%>
+			<Property>
+        <Name>securitySecureTokenSharedSecret</Name>
+        <Value><%= @shared_token %></Value>
+        <Type>String</Type>
+      </Property>
+		<% end -%>
+		<% if  @shared_token and @streamtype == 'liverepeated-edge' -%>
+			<Property>
+        <Name>secureTokenOriginSharedSecret</Name>
+        <Value><%= @shared_token %></Value>
+        <Type>String</Type>
+      </Property>
 		<% end -%>
 		</Properties>
 	</Application>
