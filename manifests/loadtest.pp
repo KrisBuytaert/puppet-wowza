@@ -1,3 +1,7 @@
+# == Class: wowza::loadtest
+#  class that installs and configures the wowza loadtest application
+#
+
 class wowza::loadtest (
   $ensure      = present
 ) {

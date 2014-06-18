@@ -1,3 +1,23 @@
+# == Class: Wowza
+# Wowza module. This module installs and configures a wowza streaming engine,
+# the package for the wowzastreamingengine needs to be available in a local
+# repository.
+#
+# === Examples
+#
+#  Minimal installation and configuration:
+#
+#  class {wowza:
+#    wowzakey => 'xxxx-xxxx-xxxx-xxxx'
+#  }
+#
+#  See params.pp for the various configuration parameters
+#
+# === Authors
+#
+#  Kristof Keppens <kristof@inuits.eu>
+#
+
 class wowza (
   $wowzakey,
   $enable               = $wowza::params::enable,
@@ -20,7 +40,6 @@ class wowza (
 
   class {'wowza::install':;} ~>
     class {'wowza::serverconfig':;} ~>
-    class {'wowza::config':;} ~>
     class {'wowza::setenv':;} ~>
     class {'wowza::service':;}
 

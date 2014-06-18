@@ -17,30 +17,35 @@ class { 'wowza':
 
 ### Add Wowza application
 
-This adds a wowza application, defaults all work for a standard live streaming application. You can also use this to define a 
+This adds a wowza application, defaults all work for a standard live streaming application. You can also use this to define a
 video on demand application by using the default type.
 
 Live :
 
-<pre><code>
-wowza::application { 'live'}
-</code></pre>
+```
+wowza::application { 'live':
+  apptype    => 'Live',
+  streamtype => 'live',
+  rtmp_protect => true,
+}
+```
 
 VOD :
 
 ```
-wowza::application {'default':
-	rtmp_protect => true
+wowza::application {'vod':
+  apptype      => 'VOD',
+  streamtype   => 'default',
+  storagedir   => '/var/content'
 }
 ```
 
-### Set Java Heap size
+Livestream Edge
 
-By default it sets the size to 1200M
-
-<pre><code>
-class { 'wowza':
-  wowzakey       => $wowzakey,
-  java_heap_size => '3000M';
+```
+wowza::application {'live-edge':
+  apptype    => 'LiveEdge',
+  streamtype => 'liverepeater-edge',
+  origin_url => 'wowz://[serverip]:1935/origin'
 }
-</code></pre>
+```

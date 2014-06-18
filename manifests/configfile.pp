@@ -1,3 +1,21 @@
+# == Define: wowza::configfile
+#  defines a new configfile for the wowza streaming engine
+#
+# === Parameters:
+#
+# [*name*]
+#  Filename for the new config file
+#
+# [*ensure*]
+#  present or absent
+#
+# [*content*]
+#  Content of the new config file
+#
+# [*source*]
+#  Source file to use for the new config file
+#
+
 define wowza::configfile (
   $ensure  = present,
   $content = '',
