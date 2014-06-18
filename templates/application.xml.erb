@@ -235,7 +235,7 @@
         <Type>String</Type>
       </Property>
 		<% end -%>
-		<% if  @shared_token and @streamtype == 'liverepeated-edge' -%>
+		<% if  @shared_token and @streamtype == 'liverepeater-edge' -%>
 			<Property>
         <Name>secureTokenOriginSharedSecret</Name>
         <Value><%= @shared_token %></Value>
