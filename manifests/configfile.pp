@@ -46,12 +46,12 @@ define wowza::configfile (
   {
     file {
       "${wowza::configdir}/${name}":
-        ensure  => $ensure,
-        source  => $source,
-        mode    => '0644',
-        owner   => 'root',
-        group   => 'root',
-        notify  => Class['wowza::service'],
+        ensure => $ensure,
+        source => $source,
+        mode   => '0644',
+        owner  => 'root',
+        group  => 'root',
+        notify => Class['wowza::service'],
     }
   }
 }

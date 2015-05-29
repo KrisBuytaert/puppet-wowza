@@ -235,12 +235,18 @@
         <Type>String</Type>
       </Property>
 		<% end -%>
-		<% if  @shared_token and @streamtype == 'liverepeater-edge' -%>
+		<% if @shared_token and @streamtype == 'liverepeater-edge' -%>
 			<Property>
         <Name>secureTokenOriginSharedSecret</Name>
         <Value><%= @shared_token %></Value>
         <Type>String</Type>
       </Property>
+		<% end -%>
+		<% if @publish_whitelist and @streamtype == 'live' -%>
+			<Property>
+				<Name>securityPublishIPWhiteList</Name>
+				<Value><%= @publish_whitelist %></Value>
+				<Type>String</Type>
 		<% end -%>
 		</Properties>
 	</Application>
