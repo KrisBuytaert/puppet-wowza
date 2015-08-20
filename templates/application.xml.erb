@@ -85,13 +85,13 @@
             <!-- Properties for TimedText -->
             <Properties>
             </Properties>
-    </TimedText>
+    	</TimedText>
 
 		<!-- HTTPStreamers (separate with commas): cupertinostreaming, smoothstreaming, sanjosestreaming, dvrchunkstreaming -->
 		<HTTPStreamers>cupertinostreaming,smoothstreaming,sanjosestreaming,mpegdashstreaming</HTTPStreamers>
 		<MediaCache>
             <MediaCacheSourceList></MediaCacheSourceList>
-    </MediaCache>
+    	</MediaCache>
 		<SharedObjects>
 			<StorageDir>${com.wowza.wms.context.VHostConfigHome}/applications/${com.wowza.wms.context.Application}/sharedobjects/${com.wowza.wms.context.ApplicationInstance}</StorageDir>
 		</SharedObjects>
@@ -110,7 +110,7 @@
 			<!-- RTP/Authentication/[type]Methods defined in Authentication.xml. Default setup includes; none, basic, digest -->
 			<Authentication>
 				<PublishMethod>digest</PublishMethod>
-        <PlayMethod><%= @playmethod %></PlayMethod>
+        		<PlayMethod><%= @playmethod %></PlayMethod>
 			</Authentication>
 			<!-- RTP/AVSyncMethod. Valid values are: senderreport, systemclock, rtptimecode -->
 			<AVSyncMethod>senderreport</AVSyncMethod>
@@ -207,18 +207,16 @@
 				<Description>FLVPlayback</Description>
 				<Class>com.wowza.wms.module.ModuleFLVPlayback</Class>
 			</Module>
-			<% if @rtmp_protect or @secure_token -%>
 			<Module>
 				<Name>ModuleRTMPAuthenticate</Name>
 				<Description>ModuleRTMPAuthenticate</Description>
 				<Class>com.wowza.wms.security.ModuleRTMPAuthenticate</Class>
 			</Module>
 			<Module>
-        <Name>ModuleCoreSecurity</Name>
-        <Description>Core Security Module for Applications</Description>
-        <Class>com.wowza.wms.security.ModuleCoreSecurity</Class>
-      </Module>
-			<% end -%>
+        		<Name>ModuleCoreSecurity</Name>
+        		<Description>Core Security Module for Applications</Description>
+        		<Class>com.wowza.wms.security.ModuleCoreSecurity</Class>
+      		</Module>
 		</Modules>
 		<!-- Properties defined here will be added to the IApplication.getProperties() and IApplicationInstance.getProperties() collections -->
 		<Properties>
@@ -230,23 +228,36 @@
 		<% end -%>
 		<% if @shared_token and @streamtype == 'live' -%>
 			<Property>
-        <Name>securitySecureTokenSharedSecret</Name>
-        <Value><%= @shared_token %></Value>
-        <Type>String</Type>
-      </Property>
-		<% end -%>
-		<% if @shared_token and @streamtype == 'liverepeater-edge' -%>
+                <Name>securitySecureTokenVersion</Name>
+                <Value>1</Value>
+                <Type>Integer</Type>
+            </Property>
 			<Property>
-        <Name>secureTokenOriginSharedSecret</Name>
-        <Value><%= @shared_token %></Value>
-        <Type>String</Type>
-      </Property>
+        		<Name>securitySecureTokenSharedSecret</Name>
+        		<Value><%= @shared_token %></Value>
+        		<Type>String</Type>
+      		</Property>
+		<% end -%>
+		<% if  @shared_token and @streamtype == 'liverepeater-edge' -%>
+			<Property>
+        		<Name>secureTokenOriginSharedSecret</Name>
+        		<Value><%= @shared_token %></Value>
+        		<Type>String</Type>
+      		</Property>
 		<% end -%>
 		<% if @publish_whitelist and @streamtype == 'live' -%>
 			<Property>
-				<Name>securityPublishIPWhiteList</Name>
+				<Name>securityPublishIPWhitelist</Name>
 				<Value><%= @publish_whitelist %></Value>
 				<Type>String</Type>
+			</Property>
+		<% end -%>
+		<% if @maximum_connections -%>
+			<Property>
+				<Name>securityPlayMaximumConnections</Name>
+				<Value><%= @maximum_connections %></Value>
+				<Type>String</Type>
+			</Property>
 		<% end -%>
 		</Properties>
 	</Application>
