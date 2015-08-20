@@ -88,6 +88,7 @@ define wowza::application (
   $target_password_file   = undef,
   $shared_token           = false,
   $publish_whitelist      = false,
+  $maximum_connections     = false,
 ) {
 
   $dir_ensure = $ensure ? {
