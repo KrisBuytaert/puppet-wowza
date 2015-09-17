@@ -207,11 +207,13 @@
 				<Description>FLVPlayback</Description>
 				<Class>com.wowza.wms.module.ModuleFLVPlayback</Class>
 			</Module>
+			<% if @rtmp_protect -%>
 			<Module>
 				<Name>ModuleRTMPAuthenticate</Name>
 				<Description>ModuleRTMPAuthenticate</Description>
 				<Class>com.wowza.wms.security.ModuleRTMPAuthenticate</Class>
 			</Module>
+			<% end -%>
 			<Module>
         		<Name>ModuleCoreSecurity</Name>
         		<Description>Core Security Module for Applications</Description>
