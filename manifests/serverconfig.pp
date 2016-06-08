@@ -60,5 +60,6 @@ class wowza::serverconfig {
     group   => 'root',
     replace => true,
     source  => 'puppet:///modules/wowza/log4j.properties',
+    notify  => Class['wowza::service'],
   }
 }
